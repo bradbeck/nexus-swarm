@@ -11,8 +11,11 @@ USER root
 ADD ${HDSD_DOWNLOAD_URL} /opt/sonatype/nexus/system/${HDSD_MAVEN_PATH}
 ADD hazelcast-network-default.xml /opt/sonatype/nexus/etc/fabric/hazelcast-network-default.xml
 
-RUN sed -i '/feature>/i\        <bundle>wrap:mvn:org.bitsofinfo/hazelcast-docker-swarm-discovery-spi/'${HDSD_VERSION}'</bundle>' \
+RUN chmod 644 /opt/sonatype/nexus/system/${HDSD_MAVEN_PATH} && \
+    sed -i '/feature>/i\        <bundle>wrap:mvn:org.bitsofinfo/hazelcast-docker-swarm-discovery-spi/'${HDSD_VERSION}'</bundle>' \
       /opt/sonatype/nexus/system/com/sonatype/nexus/plugins/nexus-hazelcast-plugin/*/nexus-hazelcast-plugin-*-features.xml && \
+    sed -i '/mvn:com.sonatype.nexus.plugins\/nexus-hazelcast-plugin/a\        <bundle>wrap:mvn:org.bitsofinfo/hazelcast-docker-swarm-discovery-spi/'${HDSD_VERSION}'</bundle>' \
+      /opt/sonatype/nexus/system/com/sonatype/nexus/assemblies/nexus-pro-feature/*/nexus-pro-feature-*-features.xml && \
     sed -i '/<properties>/a\    <property name="hazelcast.discovery.enabled">true</property>' \
       /opt/sonatype/nexus/etc/fabric/hazelcast.xml
 
