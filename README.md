@@ -11,5 +11,6 @@ $ docker build --rm -t bradbeck/nexus-swarm .
 ```
 
 ```
-docker run --rm -p 8081:8081 -v java-prefs:/opt/sonatype/sonatype-work/nexus3/javaprefs --network custom -it bradbeck/nexus-swarm
+docker service create --name nginx --replicas 1 --network overlay -p 8081:8081 bradbeck/nxrm-nginx
+docker service create --name nxrm --replicas 1 --network overlay --endpoint-mode dnsrr --mount 'type=volume,src=java-prefs,dst=/opt/sonatype/sonatype-work/nexus3/javaprefs' --mount 'type=volume,src=shared-blobs,dst=/opt/sonatype/sonatype-work/nexus3/blobs' bradbeck/nexus-swarm
 ```
