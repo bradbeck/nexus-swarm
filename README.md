@@ -1,4 +1,4 @@
-# bradbeck/nexus-swarm
+[![DockerHub Badge](http://dockeri.co/image/bradbeck/nexus-swarm)](https://hub.docker.com/r/bradbeck/nexus-swarm/)
 
 A Dockerfile for Sonatype Nexus Repository Manager 3 ready for Docker Swarm.
 
