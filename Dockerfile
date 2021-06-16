@@ -1,5 +1,6 @@
-FROM       bradbeck/nexus-ha
-MAINTAINER Brad Beck <bradley.beck+docker@gmail.com>
+# syntax=docker/dockerfile:1
+FROM bradbeck/nexus-ha
+LABEL name="Nexus Repository Manager (swarm)"
 
 ARG HS_VERSION=1.0.1
 ARG HS_JAR=hazelcast-swarm-${HS_VERSION}.jar
